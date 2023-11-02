@@ -3,9 +3,15 @@
     <div>
       <Navbar />
     </div>
-    <slot />
+    <div class="my-5">
+      <slot />
+    </div>
+    <div>
+      <Footer />
+    </div>
   </div>
 </template>
 <script setup>
-import Navbar from "../components/home_navbar.vue";
+import Footer from "../components/home/footer.vue";
+import Navbar from "../components/home/navbar.vue";
 </script>

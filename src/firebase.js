@@ -15,8 +15,8 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
-/* const db = getFirestore(firebaseApp)
-export default function coll(ref) {
+export const db = getFirestore(firebaseApp)
+/* export default function coll(ref) {
     return collection(db, ref);
-}
- */
+} */
+

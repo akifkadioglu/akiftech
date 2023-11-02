@@ -13,9 +13,9 @@
   </div>
 </template>
 <script setup>
-import SwitchMode from "./switch_mode.vue";
+import SwitchMode from "../switch_mode.vue";
 import { useDark } from "@vueuse/core";
-import { names } from "../router";
+import { names } from "../../router";
 import { useRouter } from "vue-router";
 
 const isDark = useDark();

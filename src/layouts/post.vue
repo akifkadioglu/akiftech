@@ -1,12 +1,13 @@
 <template>
+  <div>
     <div>
-      <div>
-        <Navbar />
-      </div>
+      <Navbar />
+    </div>
+    <div class="mb-9">
       <slot />
     </div>
-  </template>
-  <script setup>
-  import Navbar from "../components/post_navbar.vue";
-  </script>
-  
+  </div>
+</template>
+<script setup>
+import Navbar from "../components/post/navbar.vue";
+</script>
