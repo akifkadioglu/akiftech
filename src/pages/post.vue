@@ -6,11 +6,26 @@
     >
       <div class="font-dmsans font-bold text-4xl">{{ post.value.title }}</div>
       <div class="font-josefin text-lg my-5">{{ post.value.subtitle }}</div>
-      <hr class="mb-16" />
-      <div class="font-raleway">{{ post.value.post }}</div>
+
+      <div class="mb-5">
+        <hr />
+        <small class="flex justify-end">
+          {{
+            new Date(post.value.created_at.seconds * 1000).toLocaleString(
+              lang,
+              {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              }
+            )
+          }}
+        </small>
+      </div>
+      <div>{{ post.value.post }}</div>
     </div>
     <div v-else class="flex justify-center">
-      <loadingBar/>
+      <loadingBar />
     </div>
   </transition>
 </template>
@@ -28,6 +43,7 @@ const route = useRoute();
 const db = useFirestore();
 const isLoading = ref(true);
 const post = ref({});
+const lang = navigator.language || navigator.userLanguage;
 
 onMounted(() => {
   isLoading.value = true;

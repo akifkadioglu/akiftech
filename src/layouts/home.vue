@@ -3,7 +3,7 @@
     <div>
       <Navbar />
     </div>
-    <div class="my-5">
+    <div class="my-10">
       <slot />
     </div>
     <div>

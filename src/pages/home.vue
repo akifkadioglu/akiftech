@@ -15,7 +15,16 @@
         <div class="overflow-hidden truncate">
           {{ item.post }}
         </div>
-        <div class="flex justify-end">
+        <div class="flex justify-between items-center mt-5">
+          <small>
+            {{
+              new Date(item.created_at.seconds * 1000).toLocaleString(lang, {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })
+            }}
+          </small>
           <button
             @click="fetchPost(item.id)"
             class="mt-3 px-5 py-1 border rounded-full dark:border-zinc-800 dark:hover:bg-zinc-50 border-zinc-200 hover:bg-zinc-800 hover:text-white dark:hover:text-zinc-800 font-dmsans"
@@ -44,6 +53,7 @@ const db = useFirestore();
 const posts = ref([]);
 const router = useRouter();
 const isLoading = ref(false);
+const lang = navigator.language || navigator.userLanguage;
 
 onMounted(() => {
   isLoading.value = true;

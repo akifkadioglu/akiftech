@@ -3,7 +3,7 @@
     <div>
       <Navbar />
     </div>
-    <div class="mb-9">
+    <div class="mb-10">
       <slot />
     </div>
   </div>
