@@ -1,10 +1,13 @@
 
 import Home from '../pages/home.vue'
+import Post from '../pages/post.vue'
 import HomeLayout from '../layouts/home.vue'
+import PostLayout from '../layouts/post.vue'
 
 import { createRouter, createWebHistory } from 'vue-router'
-const names = {
+export const names = {
     HOME: "home",
+    POST: "post",
 }
 const routes = [
     {
@@ -18,6 +21,20 @@ const routes = [
                 path: '/home',
                 name: names.HOME,
                 component: Home,
+            },
+        ]
+    },
+    {
+        path: '/post',
+        meta: { layout: PostLayout },
+        redirect: {
+            name: names.HOME
+        },
+        children: [
+            {
+                path: ':id',
+                name: names.POST,
+                component: Post,
             },
         ]
     },

@@ -7,5 +7,5 @@
   </div>
 </template>
 <script setup>
-import Navbar from "../components/navbar.vue";
+import Navbar from "../components/home_navbar.vue";
 </script>
