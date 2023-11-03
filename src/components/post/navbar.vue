@@ -13,14 +13,17 @@
   </div>
 </template>
 <script setup>
+/* imports */
 import SwitchMode from "../switch_mode.vue";
 import { useDark } from "@vueuse/core";
 import { names } from "../../router";
 import { useRouter } from "vue-router";
 
+/* data */
 const isDark = useDark();
 const router = useRouter();
 
+/* methods */
 function backHome() {
   router.push({ name: names.HOME });
 }
