@@ -57,7 +57,7 @@ const lang = navigator.language || navigator.userLanguage;
 onMounted(() => {
   isLoading.value = true;
   posts.value = useCollection(
-    query(collection(db, "posts"), orderBy("created_at"))
+    query(collection(db, "posts"), orderBy("created_at","desc"))
   );
   isLoading.value = false;
 });
