@@ -4,8 +4,8 @@
       <a href="https://akifkadioglu.dev" target="_blank">
         <img
           class="rounded-full"
-          width="40"
-          src="https://raw.githubusercontent.com/akifkadioglu/akiftech/main/public/logo.png"
+          width="50"
+          src="../../../public/logo.png"
           alt="me"
         />
       </a>
