@@ -4,7 +4,7 @@
       <div
         v-for="(item, index) in posts.value"
         :key="index"
-        class="container rounded-lg mx-auto sm:max-w-lg md:max-w-2xl lg:max-w-4xl p-5 border dark:border-zinc-800 dark:hover:bg-zinc-800 border-zinc-100 hover:bg-zinc-100"
+        class="container rounded-lg my-5 mx-auto sm:max-w-lg md:max-w-2xl lg:max-w-4xl p-5 border dark:border-zinc-800 dark:hover:bg-zinc-800 border-zinc-100 hover:bg-zinc-100"
       >
         <div class="font-dmsans font-bold text-2xl my-5">
           {{ item.title }}
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div v-else>
-      <LoadingBar />
+      <div class="loading-spinner" />
     </div>
   </transition>
 </template>
@@ -44,8 +44,7 @@
 import { useRouter } from "vue-router";
 import { names } from "../router";
 import { useFirestore, useCollection } from "vuefire";
-import { collection } from "firebase/firestore";
-import LoadingBar from "../components/loading_bar.vue";
+import { collection, query, orderBy } from "firebase/firestore";
 import { onMounted, ref } from "vue";
 
 /* data */
@@ -57,9 +56,12 @@ const lang = navigator.language || navigator.userLanguage;
 
 onMounted(() => {
   isLoading.value = true;
-  posts.value = useCollection(collection(db, "posts"));
+  posts.value = useCollection(
+    query(collection(db, "posts"), orderBy("created_at"))
+  );
   isLoading.value = false;
 });
+
 /* methods */
 function fetchPost(index) {
   router.push({ name: names.POST, params: { id: index } });
