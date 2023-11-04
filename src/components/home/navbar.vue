@@ -2,19 +2,14 @@
   <div class="mb-16 m-5">
     <div class="flex items-center justify-between mb-9">
       <a href="https://akifkadioglu.dev" target="_blank">
-        <img
-          class="rounded-full"
-          width="50"
-          src="/logo.png"
-          alt="me"
-        />
+        <img class="rounded-full" width="50" src="/logo.png" alt="me" />
       </a>
       <SwitchMode />
     </div>
     <div class="flex justify-center">
       <span
         :class="isDark ? 'linear_gradient' : ''"
-        class="font-montserrat-bold text-5xl"
+        class="font-montserrat-bold text-4xl"
       >
         <span> Akif </span>
         <span :class="isDark ? '' : 'linear_gradient'"> Kadıoğlu </span>

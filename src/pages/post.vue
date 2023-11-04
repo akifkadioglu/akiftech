@@ -22,11 +22,19 @@
           </div>
         </div>
       </div>
-      <div class="font-dmsans font-bold text-4xl">{{ post.value.title }}</div>
+      <div class="font-dmsans font-bold text-4xl">
+        <button
+          class="p-2 border dark:border-zinc-700 rounded-full"
+          @click="copyURL"
+        >
+          <mdicon name="link-variant" />
+        </button>
+        {{ post.value.title }}
+      </div>
       <div class="font-josefin text-lg my-5">{{ post.value.subtitle }}</div>
 
       <div class="mb-5">
-        <hr />
+        <hr class="dark:border-zinc-700" />
         <small class="flex justify-end">
           {{
             new Date(post.value.created_at.seconds * 1000).toLocaleString(
@@ -40,12 +48,7 @@
           }}
         </small>
       </div>
-      <article
-        class="prose  dark:prose-invert"
-        v-html="post.value.post"
-      ></article>
-      <!--       <div class="prose dark:text-white dark:blockquote-white" v-html="post.value.post"></div>
- -->
+      <article class="prose dark:prose-invert" v-html="post.value.post" />
     </div>
     <div v-else class="flex justify-center">
       <div class="loading-spinner" />
@@ -59,6 +62,7 @@ import { useFirestore, useDocument } from "vuefire";
 import { doc } from "firebase/firestore";
 import { useRoute } from "vue-router";
 import { ref, onMounted } from "vue";
+import { useAppStore } from "../stores/app";
 
 /* data */
 const route = useRoute();
@@ -66,6 +70,8 @@ const db = useFirestore();
 const isLoading = ref(true);
 const post = ref({});
 const lang = navigator.language || navigator.userLanguage;
+const store = useAppStore();
+
 onMounted(async () => {
   isLoading.value = true;
   post.value = useDocument(doc(db, "posts", route.params.id));
@@ -78,6 +84,10 @@ const goReply = () => {
     window.location.origin + "/post/" + post.value.data.reply.id,
     "_blank"
   );
+};
+const copyURL = () => {
+  navigator.clipboard.writeText(window.location.href);
+  store.getSnackbar("Gönderinin link'i kopyalandı");
 };
 </script>
 <style scoped>

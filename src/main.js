@@ -6,7 +6,8 @@ import * as mdijs from '@mdi/js'
 import { router } from './router'
 import { VueFire } from 'vuefire'
 import { firebaseApp } from './firebase'
-
+import { createPinia } from "pinia";
+const pinia = createPinia()
 let app = createApp(App)
 
 app
@@ -14,6 +15,7 @@ app
         firebaseApp
     })
     .use(router)
+    .use(pinia)
     .use(mdiVue, {
         icons: mdijs
     })

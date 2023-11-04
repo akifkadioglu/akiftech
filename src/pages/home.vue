@@ -48,6 +48,7 @@ import { names } from "../router";
 import { useFirestore, useCollection } from "vuefire";
 import { collection, query, orderBy } from "firebase/firestore";
 import { onMounted, ref } from "vue";
+import { useAppStore } from "../stores/app";
 
 /* data */
 const db = useFirestore();
@@ -55,6 +56,7 @@ const posts = ref([]);
 const router = useRouter();
 const isLoading = ref(false);
 const lang = navigator.language || navigator.userLanguage;
+const store = useAppStore();
 
 onMounted(() => {
   isLoading.value = true;
@@ -67,5 +69,6 @@ onMounted(() => {
 /* methods */
 function fetchPost(index) {
   router.push({ name: names.POST, params: { id: index } });
+
 }
 </script>

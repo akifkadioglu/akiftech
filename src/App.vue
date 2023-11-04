@@ -8,9 +8,15 @@
       </component>
     </transition>
   </router-view>
+  
+  <div>
+      <snackbar />
+    </div>
 </template>
 <script>
-export default {};
+import Snackbar from './components/snackbar.vue';
+
+export default { components: { Snackbar } };
 </script>
 <style>
 .fade-enter-active,
@@ -18,7 +24,7 @@ export default {};
   transition: opacity 0.3s;
 }
 
-.fade-enter,
+.fade-enter-from,
 .fade-leave-to {
   opacity: 0;
 }
