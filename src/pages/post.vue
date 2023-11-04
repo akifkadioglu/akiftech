@@ -40,7 +40,12 @@
           }}
         </small>
       </div>
-      <div class="prose" v-html="post.value.post"></div>
+      <article
+        class="prose  dark:prose-invert"
+        v-html="post.value.post"
+      ></article>
+      <!--       <div class="prose dark:text-white dark:blockquote-white" v-html="post.value.post"></div>
+ -->
     </div>
     <div v-else class="flex justify-center">
       <div class="loading-spinner" />

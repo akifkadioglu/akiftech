@@ -13,7 +13,7 @@
           {{ item.subtitle }}
         </div>
         <div
-          class="prose line-clamp-1 overflow-hidden truncate"
+          class="line-clamp-1 overflow-hidden truncate"
           v-html="item.post"
         ></div>
 
