@@ -40,7 +40,7 @@
           }}
         </small>
       </div>
-      <div>{{ post.value.post }}</div>
+      <div class="prose" v-html="post.value.post"></div>
     </div>
     <div v-else class="flex justify-center">
       <div class="loading-spinner" />
@@ -61,7 +61,6 @@ const db = useFirestore();
 const isLoading = ref(true);
 const post = ref({});
 const lang = navigator.language || navigator.userLanguage;
-
 onMounted(async () => {
   isLoading.value = true;
   post.value = useDocument(doc(db, "posts", route.params.id));

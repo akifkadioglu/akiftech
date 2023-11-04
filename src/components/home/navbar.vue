@@ -5,7 +5,7 @@
         <img
           class="rounded-full"
           width="50"
-          src="../../../public/logo.png"
+          src="/logo.png"
           alt="me"
         />
       </a>

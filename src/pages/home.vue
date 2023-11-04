@@ -12,9 +12,11 @@
         <div class="font-josefin text-lg overflow-hidden truncate my-1">
           {{ item.subtitle }}
         </div>
-        <div class="overflow-hidden truncate">
-          {{ item.post }}
-        </div>
+        <div
+          class="prose line-clamp-1 overflow-hidden truncate"
+          v-html="item.post"
+        ></div>
+
         <div class="flex justify-between items-center mt-5">
           <small>
             {{
@@ -57,7 +59,7 @@ const lang = navigator.language || navigator.userLanguage;
 onMounted(() => {
   isLoading.value = true;
   posts.value = useCollection(
-    query(collection(db, "posts"), orderBy("created_at","desc"))
+    query(collection(db, "posts"), orderBy("created_at", "desc"))
   );
   isLoading.value = false;
 });
