@@ -2,7 +2,7 @@
   <div class="mb-16 m-5">
     <div class="flex items-center justify-between mb-9">
       <a href="https://akifkadioglu.dev" target="_blank">
-        <img class="rounded-full" width="50" src="/logo.png" alt="me" />
+        <mdicon name="map-marker-radius" />
       </a>
       <SwitchMode />
     </div>
