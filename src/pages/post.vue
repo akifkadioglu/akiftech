@@ -48,7 +48,10 @@
           }}
         </small>
       </div>
-      <article class="prose dark:prose-invert" v-html="post.value.post" />
+      <article
+        class="prose max-w-none dark:prose-invert"
+        v-html="post.value.post"
+      />
     </div>
     <div v-else class="flex justify-center">
       <div class="loading-spinner" />

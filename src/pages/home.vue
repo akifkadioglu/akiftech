@@ -13,7 +13,7 @@
             ? 'bg-gradient-to-b from-[#0072bc] via-[#34d0db] to-[#5bde7c]'
             : 'dark:hover:bg-zinc-800 hover:bg-zinc-100'
         "
-        class="my-5 cursor-pointer mx-px pl-1 p-0 border dark:border-zinc-800 border-zinc-100 "
+        class="my-5 cursor-pointer mx-1 pl-1 p-0 border dark:border-zinc-800 border-zinc-100"
       >
         <div
           class="h-full w-full bg-white dark:bg-zinc-900 dark:hover:bg-zinc-800 hover:bg-zinc-100 p-5"
