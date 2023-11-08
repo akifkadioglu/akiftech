@@ -90,8 +90,3 @@ const copyURL = () => {
   store.getSnackbar("Gönderinin link'i kopyalandı");
 };
 </script>
-<style scoped>
-.vr {
-  border-left: 5px solid #0072bc;
-}
-</style>

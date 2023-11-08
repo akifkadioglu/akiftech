@@ -29,8 +29,7 @@
 
 @font-face {
   font-family: 'Montserrat Bold';
-  src: url('./assets/fonts/montserrat/Montserrat-Bold.ttf')
-    format('truetype');
+  src: url('./assets/fonts/montserrat/Montserrat-Bold.ttf') format('truetype');
 }
 
 .font-montserrat-bold {
@@ -39,8 +38,7 @@
 
 @font-face {
   font-family: 'DM Sans';
-  src: url('./assets/fonts/dm_sans/DMSans-Regular.ttf')
-    format('truetype');
+  src: url('./assets/fonts/dm_sans/DMSans-Regular.ttf') format('truetype');
 }
 
 .font-dmsans {
@@ -49,8 +47,7 @@
 
 @font-face {
   font-family: 'Raleway';
-  src: url('./assets/fonts/raleway/Raleway-Regular.ttf')
-    format('truetype');
+  src: url('./assets/fonts/raleway/Raleway-Regular.ttf') format('truetype');
 }
 
 .font-raleway {
@@ -67,9 +64,8 @@
   font-family: 'Josefin Sans', sans-serif;
 }
 
-
 body * {
-  @apply transition-colors duration-200;
+  @apply transition-all duration-200;
 }
 
 .loading-spinner {
@@ -89,4 +85,8 @@ body * {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.vr {
+  border-left: 5px solid #0072bc;
 }

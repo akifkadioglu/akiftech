@@ -1,39 +1,58 @@
 <template>
   <transition name="fade" mode="out-in">
-    <div v-if="!isLoading && posts.value">
+    <div
+      v-if="!isLoading && posts.length > 0"
+      class="container mx-auto sm:max-w-lg md:max-w-2xl lg:max-w-4xl"
+    >
       <div
-        v-for="(item, index) in posts.value"
+        v-for="(item, index) in posts"
         :key="index"
-        class="container rounded-lg my-5 mx-auto sm:max-w-lg md:max-w-2xl lg:max-w-4xl p-5 border dark:border-zinc-800 dark:hover:bg-zinc-800 border-zinc-100 hover:bg-zinc-100"
+        @click="fetchPost(item.id)"
+        :class="
+          item.is_about_tech
+            ? 'bg-gradient-to-b from-[#0072bc] via-[#34d0db] to-[#5bde7c]'
+            : 'dark:hover:bg-zinc-800 hover:bg-zinc-100'
+        "
+        class="my-5 cursor-pointer mx-px pl-1 p-0 border dark:border-zinc-800 border-zinc-100 "
       >
-        <div class="font-dmsans font-bold text-2xl my-5">
-          {{ item.title }}
-        </div>
-        <div class="font-josefin text-lg overflow-hidden truncate my-1">
-          {{ item.subtitle }}
-        </div>
         <div
-          class="line-clamp-1 overflow-hidden truncate"
-          v-html="item.post"
-        ></div>
+          class="h-full w-full bg-white dark:bg-zinc-900 dark:hover:bg-zinc-800 hover:bg-zinc-100 p-5"
+        >
+          <div class="font-dmsans font-bold text-2xl">
+            {{ item.title }}
+          </div>
+          <div class="font-josefin text-lg overflow-hidden truncate my-1">
+            {{ item.subtitle }}
+          </div>
+          <div
+            class="line-clamp-1 overflow-hidden truncate"
+            v-html="item.post"
+          />
 
-        <div class="flex justify-between items-center mt-5">
-          <small>
-            {{
-              new Date(item.created_at.seconds * 1000).toLocaleString(lang, {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })
-            }}
-          </small>
-          <button
-            @click="fetchPost(item.id)"
-            class="mt-3 px-5 py-1 border rounded-full dark:border-zinc-800 dark:hover:bg-zinc-50 border-zinc-200 hover:bg-zinc-800 hover:text-white dark:hover:text-zinc-800 font-dmsans"
-          >
-            Read
-          </button>
+          <div class="flex justify-between items-center mt-8">
+            <small>
+              {{
+                new Date(item.created_at.seconds * 1000).toLocaleString(lang, {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })
+              }}
+            </small>
+          </div>
         </div>
+      </div>
+      <div class="flex justify-center">
+        <transition name="fade" mode="out-in">
+          <button
+            v-if="!isNextButtonLoading"
+            @click="loadNextPage"
+            class="rounded-full border px-5 py-1 dark:border-zinc-800 border-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-100 font-semibold dark:hover:text-black hover:text-white"
+          >
+            Daha fazla
+          </button>
+          <div v-else class="py-1.5 font-semibold">Daha fazla gönderi yok.</div>
+        </transition>
       </div>
     </div>
     <div v-else>
@@ -46,29 +65,39 @@
 import { useRouter } from "vue-router";
 import { names } from "../router";
 import { useFirestore, useCollection } from "vuefire";
-import { collection, query, orderBy } from "firebase/firestore";
-import { onMounted, ref } from "vue";
-import { useAppStore } from "../stores/app";
+import { collection, query, orderBy, limit } from "firebase/firestore";
+import { ref, computed, watch } from "vue";
 
 /* data */
 const db = useFirestore();
-const posts = ref([]);
 const router = useRouter();
 const isLoading = ref(false);
+const isNextButtonLoading = ref(false);
 const lang = navigator.language || navigator.userLanguage;
-const store = useAppStore();
+const docsPerFetch = ref(5);
+const collectionRef = collection(db, "posts");
 
-onMounted(() => {
-  isLoading.value = true;
-  posts.value = useCollection(
-    query(collection(db, "posts"), orderBy("created_at", "desc"))
+const collectionQuery = computed(() => {
+  return query(
+    collectionRef,
+    orderBy("created_at", "desc"),
+    limit(docsPerFetch.value)
   );
-  isLoading.value = false;
+});
+const posts = useCollection(collectionQuery);
+watch(posts, (newV, oldV) => {
+  if (newV.length != oldV.length) {
+    isNextButtonLoading.value = false;
+  }
 });
 
 /* methods */
+const loadNextPage = async () => {
+  isNextButtonLoading.value = true;
+  docsPerFetch.value = docsPerFetch.value + 5;
+};
+
 function fetchPost(index) {
   router.push({ name: names.POST, params: { id: index } });
-
 }
 </script>
