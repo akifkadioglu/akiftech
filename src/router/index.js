@@ -1,5 +1,6 @@
 
 import Home from '../pages/home.vue'
+import Groups from '../pages/groups.vue'
 import Post from '../pages/post.vue'
 import HomeLayout from '../layouts/home.vue'
 import PostLayout from '../layouts/post.vue'
@@ -8,6 +9,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 export const names = {
     HOME: "home",
     POST: "post",
+    GROUPS: "groups",
 }
 const routes = [
     {
@@ -22,17 +24,23 @@ const routes = [
                 name: names.HOME,
                 component: Home,
             },
+
         ]
     },
     {
-        path: '/post',
+        path: '/',
         meta: { layout: PostLayout },
         redirect: {
             name: names.HOME
         },
         children: [
             {
-                path: ':id',
+                path: 'group/:id',
+                name: names.GROUPS,
+                component: Groups,
+            },
+            {
+                path: 'post/:id',
                 name: names.POST,
                 component: Post,
             },

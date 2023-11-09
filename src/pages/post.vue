@@ -35,20 +35,43 @@
 
       <div class="mb-5">
         <hr class="dark:border-zinc-700" />
-        <small class="flex justify-end">
-          {{
-            new Date(post.value.created_at.seconds * 1000).toLocaleString(
-              lang,
-              {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-              }
-            )
-          }}
-        </small>
+        <div class="flex justify-between items-center">
+          <button
+            @click="lookForTopic(post.value.group.id)"
+            v-if="post.value.group"
+            class="rounded-full my-3 flex"
+            :class="
+              'bg-gradient-to-r from-[' +
+              post.value.group.from +
+              '] via-[' +
+              post.value.group.via +
+              '] to-[' +
+              post.value.group.to +
+              ']'
+            "
+          >
+            <span
+              class="w-full h-full rounded-full py-1 px-3 bg-white dark:bg-zinc-900 m-0.5 font-semibold"
+            >
+              {{ post.value.group.title }}
+            </span>
+          </button>
+          <div v-else></div>
+          <small>
+            {{
+              new Date(post.value.created_at.seconds * 1000).toLocaleString(
+                lang,
+                {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                }
+              )
+            }}
+          </small>
+        </div>
       </div>
       <article
         class="prose max-w-none dark:prose-invert"
@@ -65,12 +88,14 @@
 /* imports */
 import { useFirestore, useDocument } from "vuefire";
 import { doc } from "firebase/firestore";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 import { useAppStore } from "../stores/app";
+import { names } from "../router";
 
 /* data */
 const route = useRoute();
+const router = useRouter();
 const db = useFirestore();
 const isLoading = ref(true);
 const post = ref({});
@@ -90,8 +115,13 @@ const goReply = () => {
     "_blank"
   );
 };
+
 const copyURL = () => {
   navigator.clipboard.writeText(window.location.href);
   store.getSnackbar("Gönderinin link'i kopyalandı");
+};
+
+const lookForTopic = (id) => {
+  router.push({ name: names.GROUPS, params: { id } });
 };
 </script>

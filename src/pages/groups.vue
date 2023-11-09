@@ -1,5 +1,23 @@
 <template>
   <transition name="fade" mode="out-in">
+    <div v-if="group" class="flex justify-center font-montserrat-bold text-3xl">
+      <span
+        :class="
+          'from-[' +
+          group.from +
+          '] via-[' +
+          group.via +
+          '] to-[' +
+          group.to +
+          ']'
+        "
+        class="text-transparent drop-shadow bg-clip-text bg-gradient-to-r"
+      >
+        {{ group.title }}
+      </span>
+    </div>
+  </transition>
+  <transition name="fade" mode="out-in">
     <div
       v-if="posts.length > 0"
       class="container mx-auto sm:max-w-lg md:max-w-2xl lg:max-w-4xl"
@@ -45,25 +63,6 @@
                 })
               }}
             </small>
-            <div
-              v-if="item.group != null"
-              :class="
-                'bg-gradient-to-r from-[' +
-                item.group.from +
-                '] via-[' +
-                item.group.via +
-                '] to-[' +
-                item.group.to +
-                ']'
-              "
-              class="rounded-full flex font-semibold"
-            >
-              <div
-                class="rounded-full bg-white dark:bg-zinc-800 h-full w-full m-0.5 px-3 py-1 overflow-hidden truncate"
-              >
-                {{ item.group.title }}
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -87,27 +86,39 @@
 </template>
 <script setup>
 /* imports */
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { names } from "../router";
-import { useFirestore, useCollection } from "vuefire";
-import { collection, query, orderBy, limit } from "firebase/firestore";
+import { useFirestore, useCollection, useDocument } from "vuefire";
+import {
+  collection,
+  query,
+  orderBy,
+  limit,
+  where,
+  doc,
+} from "firebase/firestore";
 import { ref, computed, watch } from "vue";
 
 /* data */
 const db = useFirestore();
 const router = useRouter();
+const route = useRoute();
 const isLoading = ref(false);
 const lang = navigator.language || navigator.userLanguage;
 const docsPerFetch = ref(5);
 const collectionRef = collection(db, "posts");
+const groupRef = doc(db, "groups", route.params.id);
+const group = useDocument(groupRef);
 
 const collectionQuery = computed(() => {
   return query(
     collectionRef,
     orderBy("created_at", "desc"),
+    where("group", "==", groupRef),
     limit(docsPerFetch.value)
   );
 });
+
 const posts = useCollection(collectionQuery);
 watch(posts, (newV, oldV) => {
   if (newV.length != oldV.length) {
