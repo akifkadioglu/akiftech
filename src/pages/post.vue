@@ -36,26 +36,30 @@
       <div class="mb-5">
         <hr class="dark:border-zinc-700" />
         <div class="flex justify-between items-center">
-          <button
-            @click="lookForTopic(post.value.group.id)"
+          <vue-custom-tooltip
             v-if="post.value.group"
-            class="rounded-full my-3 flex"
-            :class="
-              'bg-gradient-to-r from-[' +
-              post.value.group.from +
-              '] via-[' +
-              post.value.group.via +
-              '] to-[' +
-              post.value.group.to +
-              ']'
-            "
+            label=":)"
+            position="is-right"
           >
-            <span
-              class="w-full h-full rounded-full py-1 px-3 bg-white dark:bg-zinc-900 m-0.5 font-semibold"
+            <button
+              @click="lookForTopic(post.value.group.id)"
+              class="rounded-full my-3 flex"
+              :style="{
+                backgroundImage: createBackgroundString(
+                  45,
+                  post.value.group.from,
+                  post.value.group.via,
+                  post.value.group.to
+                ),
+              }"
             >
-              {{ post.value.group.title }}
-            </span>
-          </button>
+              <span
+                class="w-full h-full rounded-full py-1 px-3 bg-white dark:bg-zinc-900 m-0.5 font-semibold"
+              >
+                {{ post.value.group.title }}
+              </span>
+            </button>
+          </vue-custom-tooltip>
           <div v-else></div>
           <small>
             {{
@@ -92,6 +96,7 @@ import { useRoute, useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 import { useAppStore } from "../stores/app";
 import { names } from "../router";
+import createBackgroundString from "../utils";
 
 /* data */
 const route = useRoute();

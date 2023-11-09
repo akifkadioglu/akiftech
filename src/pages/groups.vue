@@ -2,14 +2,17 @@
   <transition name="fade" mode="out-in">
     <div v-if="group" class="flex justify-center font-montserrat-bold text-3xl">
       <span
-        :class="
-          'from-[' +
-          group.from +
-          '] via-[' +
-          group.via +
-          '] to-[' +
-          group.to +
-          ']'
+        :style="
+          group != null
+            ? {
+                backgroundImage: createBackgroundString(
+                  45,
+                  group.from,
+                  group.via,
+                  group.to
+                ),
+              }
+            : ''
         "
         class="text-transparent bg-clip-text bg-gradient-to-r"
       >
@@ -26,18 +29,19 @@
         v-for="(item, index) in posts"
         :key="index"
         @click="fetchPost(item.id)"
-        :class="
+        :style="
           item.group != null
-            ? 'bg-gradient-to-b from-[' +
-              item.group.from +
-              '] via-[' +
-              item.group.via +
-              '] to-[' +
-              item.group.to +
-              ']'
-            : 'dark:hover:bg-zinc-800 hover:bg-zinc-100'
+            ? {
+                backgroundImage: createBackgroundString(
+                  180,
+                  item.group.from,
+                  item.group.via,
+                  item.group.to
+                ),
+              }
+            : ''
         "
-        class="my-5 cursor-pointer mx-1 pl-1 p-0 border dark:border-zinc-800 border-zinc-100"
+        class="my-5 dark:hover:bg-zinc-800 hover:bg-zinc-100 cursor-pointer mx-1 pl-1 p-0 border dark:border-zinc-800 border-zinc-100"
       >
         <div
           class="h-full w-full bg-white dark:bg-zinc-900 dark:hover:bg-zinc-800 hover:bg-zinc-100 p-5"
@@ -98,6 +102,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { ref, computed, watch } from "vue";
+import createBackgroundString from "../utils";
 
 /* data */
 const db = useFirestore();
@@ -109,7 +114,6 @@ const docsPerFetch = ref(5);
 const collectionRef = collection(db, "posts");
 const groupRef = doc(db, "groups", route.params.id);
 const group = useDocument(groupRef);
-
 const collectionQuery = computed(() => {
   return query(
     collectionRef,
@@ -118,8 +122,8 @@ const collectionQuery = computed(() => {
     limit(docsPerFetch.value)
   );
 });
-
 const posts = useCollection(collectionQuery);
+
 watch(posts, (newV, oldV) => {
   if (newV.length != oldV.length) {
     isLoading.value = false;

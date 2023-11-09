@@ -6,9 +6,7 @@ export default {
     "./index.html",
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
-
   plugins: [
     require('@tailwindcss/typography'),
-
   ],
 }
