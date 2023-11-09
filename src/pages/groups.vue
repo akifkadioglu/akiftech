@@ -11,7 +11,7 @@
           group.to +
           ']'
         "
-        class="text-transparent drop-shadow bg-clip-text bg-gradient-to-r"
+        class="text-transparent bg-clip-text bg-gradient-to-r"
       >
         {{ group.title }}
       </span>
