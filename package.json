@@ -6,13 +6,21 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "ionic:build": "npm run build",
+    "ionic:serve": "vite --address 0.0.0.0"
   },
   "dependencies": {
     "@adamdehaven/vue-custom-tooltip": "^2.6.0",
+    "@capacitor/android": "5.5.1",
+    "@capacitor/app": "5.0.6",
+    "@capacitor/cli": "5.5.1",
+    "@capacitor/core": "5.5.1",
+    "@capacitor/haptics": "5.0.6",
+    "@capacitor/keyboard": "5.0.6",
+    "@capacitor/status-bar": "5.0.6",
     "@mdi/js": "^7.3.67",
     "@vueuse/core": "^10.5.0",
-    "ckeditor-tailwind-reset": "^1.0.5",
     "firebase": "^10.5.2",
     "mdi-vue": "^3.0.13",
     "pinia": "^2.1.7",

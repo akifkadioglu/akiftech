@@ -4,6 +4,7 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
+  height: 0;
   width: 5px;
   border-radius: 20;
 }

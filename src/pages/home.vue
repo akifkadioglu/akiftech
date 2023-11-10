@@ -5,6 +5,32 @@
       class="container mx-auto sm:max-w-lg md:max-w-2xl lg:max-w-4xl"
     >
       <div
+        class="flex display-block scrollmenu bg-zinc-50 dark:bg-zinc-800 py-3"
+      >
+        <button
+          @click="fetchGroup(item.id)"
+          :style="{
+            backgroundImage: createBackgroundString(
+              45,
+              item.from,
+              item.via,
+              item.to
+            ),
+          }"
+          v-for="(item, index) in groups"
+          :key="index"
+          class="flex rounded-full mx-2"
+        >
+          <span class="flex items-center">
+            <span
+              class="h-full w-full m-0.5 px-3 py-1 bg-white dark:bg-zinc-800 rounded-full"
+            >
+              {{ item.title }}
+            </span>
+          </span>
+        </button>
+      </div>
+      <div
         v-for="(item, index) in posts"
         :key="index"
         @click="fetchPost(item.id)"
@@ -101,6 +127,7 @@ const isLoading = ref(false);
 const lang = navigator.language || navigator.userLanguage;
 const docsPerFetch = ref(5);
 const collectionRef = collection(db, "posts");
+const groups = useCollection(collection(db, "groups"));
 const collectionQuery = computed(() => {
   return query(
     collectionRef,
@@ -125,4 +152,13 @@ const loadNextPage = async () => {
 function fetchPost(index) {
   router.push({ name: names.POST, params: { id: index } });
 }
+function fetchGroup(index) {
+  router.push({ name: names.GROUPS, params: { id: index } });
+}
 </script>
+<style scoped>
+.scrollmenu {
+  overflow: auto;
+  white-space: nowrap;
+}
+</style>

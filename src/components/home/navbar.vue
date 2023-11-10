@@ -2,7 +2,7 @@
   <div class="mb-16 m-5">
     <div class="flex items-center justify-between mb-9">
       <a href="https://akifkadioglu.dev" target="_blank">
-        <mdicon name="map-marker-radius" />
+        <mdicon name="link" />
       </a>
       <SwitchMode />
     </div>

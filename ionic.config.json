@@ -1,0 +1,7 @@
+{
+  "name": "akiftech",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "custom"
+}
