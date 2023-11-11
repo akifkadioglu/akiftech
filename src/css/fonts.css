@@ -1,0 +1,46 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./../assets/fonts/montserrat/Montserrat-Regular.ttf')
+      format('truetype');
+  }
+  
+  .font-montserrat {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  @font-face {
+    font-family: 'Montserrat Bold';
+    src: url('./../assets/fonts/montserrat/Montserrat-Bold.ttf') format('truetype');
+  }
+  
+  .font-montserrat-bold {
+    font-family: 'Montserrat Bold', sans-serif;
+  }
+  
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('./../assets/fonts/dm_sans/DMSans-Regular.ttf') format('truetype');
+  }
+  
+  .font-dmsans {
+    font-family: 'DM Sans', sans-serif;
+  }
+  
+  @font-face {
+    font-family: 'Raleway';
+    src: url('./../assets/fonts/raleway/Raleway-Regular.ttf') format('truetype');
+  }
+  
+  .font-raleway {
+    font-family: 'Raleway', sans-serif;
+  }
+  
+  @font-face {
+    font-family: 'Josefin Sans';
+    src: url('./../assets/fonts/josefin_sans/JosefinSans-Regular.ttf')
+      format('truetype');
+  }
+  
+  .font-josefin {
+    font-family: 'Josefin Sans', sans-serif;
+  }

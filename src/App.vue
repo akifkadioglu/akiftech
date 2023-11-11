@@ -10,15 +10,45 @@
       </component>
     </transition>
   </router-view>
-
   <div>
     <snackbar />
   </div>
 </template>
 <script>
 import Snackbar from "./components/snackbar.vue";
+import { useAppStore } from "./stores/app";
 
-export default { components: { Snackbar } };
+export default {
+  components: { Snackbar },
+  mounted() {
+    this.checkBDay();
+  },
+  data() {
+    return {
+      specialDays: [
+        {
+          title: "Doğum günüm 🥳 🎉",
+          month: 3,
+          day: 28,
+        },
+      ],
+    };
+  },
+  methods: {
+    checkBDay() {
+      var now = new Date();
+      this.specialDays.forEach((e) => {
+        if (now.getMonth() + 1 == e.month && now.getDate() == e.day) {
+          this.$confetti.start();
+          setTimeout(() => {
+            this.$confetti.stop();
+            useAppStore().getSnackbar(e.title);
+          }, 5000);
+        }
+      });
+    },
+  },
+};
 </script>
 <style>
 .fade-enter-active,

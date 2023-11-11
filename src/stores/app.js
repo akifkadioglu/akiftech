@@ -8,7 +8,6 @@ export const useAppStore = defineStore("app", {
         }
     },
     actions: {
-       
         getSnackbar(text) {
             this.snackbarText = text
 
