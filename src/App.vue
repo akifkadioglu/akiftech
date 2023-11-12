@@ -17,6 +17,7 @@
 <script>
 import Snackbar from "./components/snackbar.vue";
 import { useAppStore } from "./stores/app";
+import { isMobile } from "./utils";
 
 export default {
   components: { Snackbar },
@@ -32,6 +33,7 @@ export default {
           day: 28,
         },
       ],
+      scrollHeight: isMobile() ? 0 : "15px",
     };
   },
   methods: {
@@ -50,3 +52,16 @@ export default {
   },
 };
 </script>
+<style>
+::-webkit-scrollbar {
+  height: v-bind(scrollHeight);
+  width: 5px;
+  border-radius: 20;
+}
+::-webkit-scrollbar-thumb {
+  background: #585858;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2b2b2b;
+}
+</style>

@@ -2,7 +2,6 @@
 import './css/main.css'
 import './css/fonts.css'
 import './css/loading_bar.css'
-import './css/scroll.css'
 import './css/animation.css'
 
 /* librares */
