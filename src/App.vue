@@ -28,8 +28,8 @@ export default {
       specialDays: [
         {
           title: "Doğum günüm 🥳 🎉",
-          month: 3,
-          day: 28,
+          month: 11,
+          day: 12,
         },
       ],
     };
@@ -42,7 +42,7 @@ export default {
           this.$confetti.start();
           setTimeout(() => {
             this.$confetti.stop();
-            useAppStore().getSnackbar(e.title);
+            useAppStore().getSnackbar(e.title, 5000);
           }, 5000);
         }
       });
@@ -50,14 +50,3 @@ export default {
   },
 };
 </script>
-<style>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-</style>

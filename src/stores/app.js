@@ -8,13 +8,13 @@ export const useAppStore = defineStore("app", {
         }
     },
     actions: {
-        getSnackbar(text) {
+        getSnackbar(text, time = 2000) {
             this.snackbarText = text
 
             this.snackbar = true
             setTimeout(() => {
                 this.snackbar = false
-            }, 2000);
+            }, time);
         }
     }
 }
