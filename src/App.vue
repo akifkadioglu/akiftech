@@ -28,8 +28,8 @@ export default {
       specialDays: [
         {
           title: "Doğum günüm 🥳 🎉",
-          month: 11,
-          day: 12,
+          month: 3,
+          day: 28,
         },
       ],
     };
