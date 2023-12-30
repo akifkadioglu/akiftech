@@ -25,51 +25,7 @@
       v-if="posts.length > 0"
       class="container mx-auto sm:max-w-lg md:max-w-2xl lg:max-w-4xl"
     >
-      <div
-        v-for="(item, index) in posts"
-        :key="index"
-        @click="fetchPost(item.id)"
-        :style="
-          item.group != null
-            ? {
-                backgroundImage: createBackgroundString(
-                  180,
-                  item.group.from,
-                  item.group.via,
-                  item.group.to
-                ),
-              }
-            : ''
-        "
-        class="my-5 dark:hover:bg-zinc-800 hover:bg-zinc-100 cursor-pointer mx-1 pl-1 p-0 border dark:border-zinc-800 border-zinc-100"
-      >
-        <div
-          class="h-full w-full bg-white dark:bg-zinc-900 dark:hover:bg-zinc-800 hover:bg-zinc-100 p-5"
-        >
-          <div class="font-dmsans font-bold text-2xl">
-            {{ item.title }}
-          </div>
-          <div class="font-josefin text-lg overflow-hidden truncate my-1">
-            {{ item.subtitle }}
-          </div>
-          <div
-            class="line-clamp-1 overflow-hidden truncate"
-            v-html="item.post"
-          />
-
-          <div class="flex justify-between items-center mt-8">
-            <small>
-              {{
-                new Date(item.created_at.seconds * 1000).toLocaleString(lang, {
-                  day: "numeric",
-                  month: "long",
-                  year: "numeric",
-                })
-              }}
-            </small>
-          </div>
-        </div>
-      </div>
+      <PostsPage :data="posts" />
       <div class="flex justify-center">
         <transition name="fade" mode="out-in">
           <button
@@ -90,8 +46,7 @@
 </template>
 <script setup>
 /* imports */
-import { useRouter, useRoute } from "vue-router";
-import { names } from "../router";
+import { useRoute } from "vue-router";
 import { useFirestore, useCollection, useDocument } from "vuefire";
 import {
   collection,
@@ -102,14 +57,13 @@ import {
   doc,
 } from "firebase/firestore";
 import { ref, computed, watch } from "vue";
-import createBackgroundString from "../utils";
+import { createBackgroundString } from "../utils";
+import PostsPage from "../components/posts.vue";
 
 /* data */
 const db = useFirestore();
-const router = useRouter();
 const route = useRoute();
 const isLoading = ref(false);
-const lang = navigator.language || navigator.userLanguage;
 const docsPerFetch = ref(5);
 const collectionRef = collection(db, "posts");
 const groupRef = doc(db, "groups", route.params.id);
@@ -135,8 +89,4 @@ const loadNextPage = async () => {
   isLoading.value = true;
   docsPerFetch.value = docsPerFetch.value + 5;
 };
-
-function fetchPost(index) {
-  router.push({ name: names.POST, params: { id: index } });
-}
 </script>

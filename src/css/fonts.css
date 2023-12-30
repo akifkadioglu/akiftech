@@ -45,3 +45,23 @@
 .font-josefin {
   font-family: 'Josefin Sans', sans-serif;
 }
+
+@font-face {
+  font-family: 'Times';
+  src: url('./../assets/fonts/times/times.ttf')
+    format('truetype');
+}
+
+.font-times {
+  font-family: 'Times', serif;
+}
+
+@font-face {
+  font-family: 'Libre Baskerville';
+  src: url('./../assets/fonts/libre_baskerville/LibreBaskerville-Regular.ttf')
+    format('truetype');
+}
+
+.font-baskerville {
+  font-family: 'Libre Baskerville', sans-serif;
+}

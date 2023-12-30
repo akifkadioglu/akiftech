@@ -10,3 +10,15 @@ body * {
 .vr {
   border-left: 5px solid #0072bc;
 }
+
+::-webkit-scrollbar {
+  height: 0;
+  width: 5px;
+  border-radius: 20;
+}
+::-webkit-scrollbar-thumb {
+  background: #585858;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2b2b2b;
+}
